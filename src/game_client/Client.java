@@ -9,7 +9,13 @@ public class Client extends JFrame
       try
       {
          Client client = new Client();
+         GameInterface game = new GameInterface();
+         client.add(game);
          client.setVisible(true);
+         while (true)
+         {
+            game.tick();
+         }
       } catch (Exception e)
       {
          e.printStackTrace();
