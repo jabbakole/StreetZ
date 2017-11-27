@@ -12,10 +12,6 @@ public class Client extends JFrame
          GameInterface game = new GameInterface();
          client.add(game);
          client.setVisible(true);
-         while (true)
-         {
-            game.tick();
-         }
       } catch (Exception e)
       {
          e.printStackTrace();
@@ -24,8 +20,9 @@ public class Client extends JFrame
 
    public Client()
    {
-      setBounds(100, 100, 450, 300);
+      setBounds(500, 200, 1080, 720);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      setTitle("StreetZ");
    }
 
 }
