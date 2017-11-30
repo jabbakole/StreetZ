@@ -11,7 +11,7 @@ public class InterfaceKeyAdapter implements KeyListener
    {
       switch (GameInterface.state)
       {
-         case MAIN_MENU:
+         case START_SCREEN:
          {
             if (e.getKeyCode() == KeyEvent.VK_ENTER)
             {
@@ -21,6 +21,21 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case MODE_SELECT:
          {
+            if (e.getKeyCode() == KeyEvent.VK_DOWN)
+            {
+               // there'll be circular linked list in mode select jcomponent; focus the next
+               // mode in the list
+            } else if (e.getKeyCode() == KeyEvent.VK_UP)
+            {
+               // same as above
+            } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+            {
+               GameInterface.state = State.START_SCREEN;
+            } else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+            {
+               // depending on which button is focused in the circular list, go to that state
+               // (controls, char sel, stage sel)
+            }
             break;
          }
          case CONTROLS:

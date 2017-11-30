@@ -20,7 +20,7 @@ public class Client extends JFrame
 
    public Client()
    {
-      setBounds(500, 200, 1080, 720);
+      setBounds(500, 200, 1280, 720);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setTitle("StreetZ");
    }

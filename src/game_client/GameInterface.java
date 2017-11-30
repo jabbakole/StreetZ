@@ -4,22 +4,27 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
 public class GameInterface extends JComponent implements ActionListener
 {
    public static State state;
+   private boolean     isStartScreen;
    private Timer       timer;
 
    public GameInterface()
    {
       setFocusable(true);
-      state = State.MAIN_MENU;
-      timer = new Timer(1070, this);
+      state = State.START_SCREEN;
+      timer = new Timer(17, this); // close to 60fps (1000ms/60)
       addKeyListener(new InterfaceKeyAdapter());
       timer.start();
+      isStartScreen = true;
    }
 
    public void tick()
@@ -28,21 +33,24 @@ public class GameInterface extends JComponent implements ActionListener
    }
 
    @Override
-   public void paint(Graphics g)
+   public void paintComponent(Graphics g)
    {
       switch (state)
       {
-         case MAIN_MENU:
+         case START_SCREEN:
          {
-            // g.drawImage(img, x, y, observer)
-            g.setColor(Color.BLUE);
-            g.fillRoundRect(3, 3, 6, 6, 1, 1);
+            ImageIcon startScreenImg = new ImageIcon("Data/startscreen.png");
+            g.drawImage(startScreenImg.getImage(), 0, 0, null);
             break;
          }
          case MODE_SELECT:
          {
-            g.setColor(Color.GREEN);
-            g.fillRect(6, 6, 23, 2);
+            if (isStartScreen)
+            {
+               add(new ModeSelect());
+               isStartScreen = false;
+               timer.stop();
+            }
             break;
          }
          case CONTROLS:
