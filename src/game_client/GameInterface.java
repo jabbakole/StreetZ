@@ -35,21 +35,26 @@ public class GameInterface extends JComponent implements ActionListener
    @Override
    public void paintComponent(Graphics g)
    {
+      // Graphics2D g2d = (Graphics2D) g;
       switch (state)
       {
          case START_SCREEN:
          {
             ImageIcon startScreenImg = new ImageIcon("Data/startscreen.png");
             g.drawImage(startScreenImg.getImage(), 0, 0, null);
+            // if line 41 active then
+            // g2d.drawImage(startScreenImg.getImage(), 0, 0, null);
             break;
          }
          case MODE_SELECT:
          {
             if (isStartScreen)
-            {
-               add(new ModeSelect());
-               isStartScreen = false;
-               timer.stop();
+            {/**
+              * add(new ModeSelect()); System.out.println("added one more mode select
+              * haha!"); isStartScreen = false; // timer.stop();
+              */
+               ImageIcon modeSelectImg = new ImageIcon("Data/modeselect/modes_" + InterfaceKeyAdapter.count + ".png");
+               g.drawImage(modeSelectImg.getImage(), 0, 0, null);
             }
             break;
          }

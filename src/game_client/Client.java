@@ -12,6 +12,7 @@ public class Client extends JFrame
          GameInterface game = new GameInterface();
          client.add(game);
          client.setVisible(true);
+         client.setResizable(false);
       } catch (Exception e)
       {
          e.printStackTrace();
@@ -23,6 +24,11 @@ public class Client extends JFrame
       setBounds(500, 200, 1280, 720);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       setTitle("StreetZ");
+   }
+
+   public void exit()
+   {
+      System.exit((Integer) null);
    }
 
 }

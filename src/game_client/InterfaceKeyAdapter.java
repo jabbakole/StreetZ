@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 public class InterfaceKeyAdapter implements KeyListener
 {
+   static int count = 1;
 
    @Override
    public void keyPressed(KeyEvent e)
@@ -23,10 +24,18 @@ public class InterfaceKeyAdapter implements KeyListener
          {
             if (e.getKeyCode() == KeyEvent.VK_DOWN)
             {
+               if (count < 3)
+                  count++;
+               else if (count == 3)
+                  count = 1;
                // there'll be circular linked list in mode select jcomponent; focus the next
                // mode in the list
             } else if (e.getKeyCode() == KeyEvent.VK_UP)
             {
+               if (count > 1)
+                  count--;
+               else if (count == 1)
+                  count = 3;
                // same as above
             } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
             {
@@ -35,6 +44,24 @@ public class InterfaceKeyAdapter implements KeyListener
             {
                // depending on which button is focused in the circular list, go to that state
                // (controls, char sel, stage sel)
+               switch (count)
+               {
+                  case (1):
+                  {
+                     GameInterface.state = State.CHAR_SELECT;
+                     break;
+                  }
+                  case (2):
+                  {
+                     GameInterface.state = State.CONTROLS;
+                     break;
+                  }
+                  case (3):
+                  {
+                     System.exit(1); // no idea how graceful this is??
+                     break;
+                  }
+               }
             }
             break;
          }
