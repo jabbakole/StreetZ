@@ -5,7 +5,13 @@ import java.awt.event.KeyListener;
 
 public class InterfaceKeyAdapter implements KeyListener
 {
-   static int count = 1;
+   public static int modeNum = 1;
+   // 1 = fight
+   // 2 = controls
+   // 3 = quit
+
+   public static int charRow = 1;
+   public static int charCol = 1;
 
    @Override
    public void keyPressed(KeyEvent e)
@@ -24,18 +30,18 @@ public class InterfaceKeyAdapter implements KeyListener
          {
             if (e.getKeyCode() == KeyEvent.VK_DOWN)
             {
-               if (count < 3)
-                  count++;
-               else if (count == 3)
-                  count = 1;
+               if (modeNum < 3)
+                  modeNum++;
+               else if (modeNum == 3)
+                  modeNum = 1;
                // there'll be circular linked list in mode select jcomponent; focus the next
                // mode in the list
             } else if (e.getKeyCode() == KeyEvent.VK_UP)
             {
-               if (count > 1)
-                  count--;
-               else if (count == 1)
-                  count = 3;
+               if (modeNum > 1)
+                  modeNum--;
+               else if (modeNum == 1)
+                  modeNum = 3;
                // same as above
             } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
             {
@@ -44,7 +50,7 @@ public class InterfaceKeyAdapter implements KeyListener
             {
                // depending on which button is focused in the circular list, go to that state
                // (controls, char sel, stage sel)
-               switch (count)
+               switch (modeNum)
                {
                   case (1):
                   {
@@ -71,6 +77,26 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case CHAR_SELECT:
          {
+            if ((e.getKeyCode() == KeyEvent.VK_RIGHT) && charRow < 4)
+            {
+               charRow++;
+            } else if ((e.getKeyCode() == KeyEvent.VK_LEFT) && charRow > 1)
+            {
+               charRow--;
+            } else if ((e.getKeyCode() == KeyEvent.VK_DOWN) && (charCol == 1))
+            {
+               charCol++;
+            } else if ((e.getKeyCode() == KeyEvent.VK_UP) && (charCol == 2))
+            {
+               charCol--;
+            } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+            {
+               GameInterface.state = State.MODE_SELECT;
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_ENTER)
+            {
+               GameInterface.state = State.STAGE_SELECT;
+            }
             break;
          }
          case STAGE_SELECT:

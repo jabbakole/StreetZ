@@ -10,16 +10,13 @@ import javax.swing.Timer;
 
 import ui_tools.Button;
 
-public class ModeSelect extends JComponent implements ActionListener
+public class CharSelect extends JComponent implements ActionListener
 {
-   private Button versus;
-   private Button controls;
-   private Button back;
-   private Timer  timer;
+   private Timer timer;
 
    // private CircularLinkedList list; - to cycle through versus, controls, back
 
-   public ModeSelect()
+   public CharSelect()
    {
       timer = new Timer(17, this);
       timer.start();
@@ -32,7 +29,8 @@ public class ModeSelect extends JComponent implements ActionListener
    @Override
    public void paintComponent(Graphics g)
    {
-      ImageIcon modeSelectImg = new ImageIcon("Data/modeselect/modes_" + InterfaceKeyAdapter.modeNum + ".png");
+      ImageIcon modeSelectImg = new ImageIcon(
+            "Data/charselect/char_" + InterfaceKeyAdapter.charCol + InterfaceKeyAdapter.charRow + ".png");
       g.drawImage(modeSelectImg.getImage(), 0, 0, null);
    }
 
@@ -44,6 +42,7 @@ public class ModeSelect extends JComponent implements ActionListener
 
    public void tick()
    {
+      System.out.println("?");
       repaint();
    }
 
