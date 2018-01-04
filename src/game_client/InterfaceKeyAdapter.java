@@ -92,6 +92,7 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case CONTROLS:
          {
+            
             break;
          }
          case CHAR_SELECT:

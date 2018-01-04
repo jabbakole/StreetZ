@@ -14,16 +14,18 @@ public class GameInterface extends JLayeredPane implements ActionListener
    public static State               state;
    public static InterfaceKeyAdapter adapt;
    private Timer                     timer;
-   
+
    // Player Keys
-   private PlayerKeys player1;
-   private PlayerKeys player2;
+   private PlayerKeys                player1;
+   private PlayerKeys                player2;
 
    // Components & related stuff for different states
    private ArrayList<BaseComponent>  componentList;
    private ModeSelect                modeSelect;
    private StartScreen               startScreen;
    private CharSelect                charSelect;
+   private Controls                  controls;
+
    private int                       compCount;
 
    public GameInterface()
@@ -31,7 +33,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
       // initialize buttons
       player1 = new PlayerKeys(1);
       player2 = new PlayerKeys(2);
-      
+
       // initialize miscellaneous
       adapt = new InterfaceKeyAdapter(player1, player2);
       state = State.START_SCREEN;
@@ -47,11 +49,13 @@ public class GameInterface extends JLayeredPane implements ActionListener
       modeSelect = new ModeSelect();
       startScreen = new StartScreen();
       charSelect = new CharSelect();
+      controls = new Controls();
 
       // add all the components
       addComp(modeSelect);
       addComp(charSelect);
       addComp(startScreen);
+      addComp(controls);
    }
 
    /**
@@ -102,6 +106,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
          }
          case CONTROLS:
          {
+            bringCompToFront(controls);
             break;
          }
          case CHAR_SELECT:
