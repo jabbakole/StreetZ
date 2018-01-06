@@ -6,7 +6,13 @@ public class Client extends JFrame
 {
    public static void main(String[] args)
    {
-      Client client = new Client();
+      try
+      {
+         Client client = new Client();
+      } catch (Exception e)
+      {
+         e.printStackTrace();
+      }
    }
 
    public Client()
@@ -17,7 +23,6 @@ public class Client extends JFrame
       setVisible(true);
       setTitle("StreetZ");
       GameInterface game = new GameInterface();
-      game.setSize(1280, 720);
       game.setOpaque(true);
       setContentPane(game);
    }

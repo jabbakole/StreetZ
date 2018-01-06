@@ -16,23 +16,32 @@ public class GameInterface extends JLayeredPane implements ActionListener
    private Timer                     timer;
 
    // Player Keys
-   private PlayerKeys player1;
-   private PlayerKeys player2;
+   private PlayerKeys                player1;
+   private PlayerKeys                player2;
 
    // Components & related stuff for different states
-   private ArrayList<BaseComponent> componentList;
-   private ModeSelect               modeSelect;
-   private StartScreen              startScreen;
-   private CharSelect               charSelect;
-   private Controls                 controls;
+   private ArrayList<BaseComponent>  componentList;
+   private ModeSelect                modeSelect;
+   private StartScreen               startScreen;
+   private CharSelect                charSelect;
+   private Controls                  controls;
 
-   private int compCount;
+   private int                       compCount;
 
    public GameInterface()
    {
       // initialize buttons
       player1 = new PlayerKeys(1);
       player2 = new PlayerKeys(2);
+
+      // initialize miscellaneous
+      adapt = new InterfaceKeyAdapter(player1, player2);
+      state = State.START_SCREEN;
+      setFocusable(true);
+      setOpaque(true);
+      timer = new Timer(17, this); // close to 60fps (1000ms/60)
+      addKeyListener(adapt);
+      timer.start();
 
       // initialize all the components and related
       compCount = 0;
@@ -45,18 +54,8 @@ public class GameInterface extends JLayeredPane implements ActionListener
       // add all the components
       addComp(modeSelect);
       addComp(charSelect);
-      addComp(controls);
       addComp(startScreen);
-
-      // initialize miscellaneous
-      adapt = new InterfaceKeyAdapter(player1, player2);
-      state = State.START_SCREEN;
-      setFocusable(true);
-      setOpaque(true);
-      timer = new Timer(17, this); // close to 60fps (1000ms/60)
-      addKeyListener(adapt);
-      // make sure start timer comes after everything else lmao
-      timer.start();
+      addComp(controls);
    }
 
    /**
@@ -79,7 +78,6 @@ public class GameInterface extends JLayeredPane implements ActionListener
    {
       int compZ = getLayer(comp);
       // if the component is already in front, return
-      // small problem: on start screen, all timers are running
       if (compZ == compCount)
       {
          return;
@@ -94,9 +92,6 @@ public class GameInterface extends JLayeredPane implements ActionListener
 
    public void tick()
    {
-      // somehow if requestFocus() isn't here, something else takes the focus and the
-      // keyadapter doesn't work since it needs this to be focused
-      requestFocus();
       switch (state)
       {
          case START_SCREEN:

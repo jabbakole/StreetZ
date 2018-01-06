@@ -14,7 +14,7 @@ public abstract class BaseComponent extends JComponent implements ActionListener
    {
       timer = new Timer(17, this);
       setSize(1280, 720);
-      setFocusable(false);
+      setFocusable(true);
       setVisible(true);
       setOpaque(true);
       timer.start();
@@ -39,11 +39,6 @@ public abstract class BaseComponent extends JComponent implements ActionListener
    public void stopTimer()
    {
       timer.stop();
-   }
-   
-   public boolean timerIsRunning()
-   {
-      return timer.isRunning();
    }
    
 }

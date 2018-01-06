@@ -39,11 +39,6 @@ public class MyButton
       isFocused = false;
    }
    
-   public boolean isFocused()
-   {
-      return isFocused();
-   }
-   
    public int getWidth()
    {
       return width;

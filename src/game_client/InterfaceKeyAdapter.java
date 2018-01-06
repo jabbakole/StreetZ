@@ -11,18 +11,15 @@ public class InterfaceKeyAdapter implements KeyListener
 
    public InterfaceKeyAdapter(PlayerKeys p1, PlayerKeys p2)
    {
-      super();
       this.p1 = p1;
       this.p2 = p2;
    }
 
-   // FOR MODESELECT
    public static int modeNum = 1;
    // 1 = fight
    // 2 = controls
    // 3 = quit
 
-   // FOR CHARSELECT
    public static int charCol = 1;
    public static int charRow = 1;
    // 11 = somedude
@@ -30,16 +27,6 @@ public class InterfaceKeyAdapter implements KeyListener
    // ...
    // 21 = someotherotherdude
    // ...
-
-   // FOR CONTROLS
-   public static int p1Row = 0;
-   public static int p2Row = 0;
-   // [0] = up;
-   // [1] = down;
-   // [2] = left;
-   // [3] = right;
-   // [4] = jabConfirm;
-   // [5] = kickBack;
 
    @Override
    public void keyPressed(KeyEvent e)
@@ -105,42 +92,7 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case CONTROLS:
          {
-            if (key == p1.getDown())
-            {
-               ++p1Row;
-               if (p1Row > 5)
-               {
-                  p1Row = 0;
-               }
-            }
-            else if (key == p2.getDown())
-            {
-               ++p2Row;
-               if (p2Row > 5)
-               {
-                  p2Row = 0;
-               }
-            }
-            else if (key == p1.getUp())
-            {
-               --p1Row;
-               if (p1Row < 0)
-               {
-                  p1Row = 5;
-               }
-            }
-            else if (key == p2.getUp())
-            {
-               --p2Row;
-               if (p2Row < 0)
-               {
-                  p2Row = 5;
-               }
-            }
-            else if ((key == p1.getKickBack()) || (key == p2.getKickBack()) || (key == KeyEvent.VK_BACK_SPACE))
-            {
-               GameInterface.state = State.MODE_SELECT;
-            }
+            
             break;
          }
          case CHAR_SELECT:
@@ -180,7 +132,6 @@ public class InterfaceKeyAdapter implements KeyListener
             break;
          }
       }
-
    }
 
    @Override
