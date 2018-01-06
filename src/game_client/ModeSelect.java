@@ -8,7 +8,7 @@ import javax.swing.Timer;
 
 import ui_tools.MyButton;
 
-public class ModeSelect extends BaseComponent implements ActionListener
+public class ModeSelect extends BaseComponent
 {
    private MyButton versus;
    private MyButton controls;
@@ -21,7 +21,7 @@ public class ModeSelect extends BaseComponent implements ActionListener
    public void paintComponent(Graphics g)
    {
       ImageIcon modeSelectImg = new ImageIcon("Data/modeselect/modes_" + InterfaceKeyAdapter.modeNum + ".png");
-      g.drawImage(modeSelectImg.getImage(), 0, 0, null);
+      g.drawImage(modeSelectImg.getImage(), 0, 0, this);
    }
    
 }

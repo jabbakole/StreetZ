@@ -15,7 +15,7 @@ public class CharSelect extends BaseComponent implements ActionListener
    {
       ImageIcon modeSelectImg = new ImageIcon(
             "Data/charselect/char_" + InterfaceKeyAdapter.charRow + InterfaceKeyAdapter.charCol + ".png");
-      g.drawImage(modeSelectImg.getImage(), 0, 0, null);
+      g.drawImage(modeSelectImg.getImage(), 0, 0, this);
    }
 
 }

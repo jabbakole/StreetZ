@@ -1,6 +1,7 @@
 package game_client;
 
 import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
@@ -8,27 +9,27 @@ import ui_tools.MyButton;
 
 public class Controls extends BaseComponent
 {
-   private MyButton   p1up;
-   private MyButton   p1down;
-   private MyButton   p1left;
-   private MyButton   p1right;
-   private MyButton   p1jabConfirm;
-   private MyButton   p1kickBack;
+   private MyButton p1up;
+   private MyButton p1down;
+   private MyButton p1left;
+   private MyButton p1right;
+   private MyButton p1jabConfirm;
+   private MyButton p1kickBack;
 
-   private MyButton   p2up;
-   private MyButton   p2down;
-   private MyButton   p2left;
-   private MyButton   p2right;
-   private MyButton   p2jabConfirm;
-   private MyButton   p2kickBack;
+   private MyButton p2up;
+   private MyButton p2down;
+   private MyButton p2left;
+   private MyButton p2right;
+   private MyButton p2jabConfirm;
+   private MyButton p2kickBack;
 
    private MyButton[] p1Controls;
    private MyButton[] p2Controls;
 
-   private int        p1Offset;
-   private int        p2Offset;
-   private int        p1XStart;
-   private int        p2XStart;
+   private int p1Offset;
+   private int p2Offset;
+   
+   private Image bg;
 
    public Controls()
    {
@@ -36,6 +37,7 @@ public class Controls extends BaseComponent
       p1Offset = 29;
       p2Offset = 29;
       initializeButtons();
+      bg = new ImageIcon("Data/controls/controlsbg.png").getImage();
    }
 
    private void initializeButtons()
@@ -71,21 +73,44 @@ public class Controls extends BaseComponent
       p2Controls[3] = p2right;
       p2Controls[4] = p2jabConfirm;
       p2Controls[5] = p2kickBack;
+
+      p1up.setFocused();
+      p2up.setFocused();
    }
 
    @Override
    public void paintComponent(Graphics g)
    {
       // paint background
-      ImageIcon bg = new ImageIcon("Data/controls/controlsbg.png");
-      g.drawImage(bg.getImage(), 0, 0, null);
+      g.drawImage(bg, 0, 0, this);
 
       // paint buttons.. hardcoded
       for (int x = 0; x < 6; x++)
       {
-         g.drawImage(p1Controls[x].getImg(), 347, 157 + (p1Offset * x), null);
-         g.drawImage(p2Controls[x].getImg(), 785, 157 + (p2Offset * x), null);
+         g.drawImage(p1Controls[x].getImg(), 347, 157 + ((48 + p1Offset) * x), this);
+         g.drawImage(p2Controls[x].getImg(), 790, 157 + ((48 + p2Offset) * x), this);
       }
    }
+
+   @Override
+   public void tick()
+   {
+      for (int x = 0; x < 6; x++)
+      {
+         p1Controls[x].setUnfocused();
+         p2Controls[x].setUnfocused();
+      }
+      p1Controls[InterfaceKeyAdapter.p1Row].setFocused();
+      p2Controls[InterfaceKeyAdapter.p2Row].setFocused();
+      repaint();
+   }
+
+   /**
+    * Maybe something like this for future design. public void cyclep1Down() { for
+    * (int x = 0; x < p1Controls.length; x++) { if (p1Controls[x].isFocused()) { if
+    * (x == (p1Controls.length - 1)) { p1Controls[x].setUnfocused();
+    * p1Controls[0].setFocused(); } else { p1Controls[x].setUnfocused();
+    * p1Controls[x+1].setFocused(); } } } }
+    */
 
 }
