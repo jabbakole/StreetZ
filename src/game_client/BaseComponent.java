@@ -8,7 +8,7 @@ import javax.swing.Timer;
 
 public abstract class BaseComponent extends JComponent implements ActionListener
 {
-   private Timer timer;
+   protected Timer timer;
    
    public BaseComponent()
    {

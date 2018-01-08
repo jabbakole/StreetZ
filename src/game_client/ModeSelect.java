@@ -1,18 +1,15 @@
 package game_client;
 
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-import ui_tools.MyButton;
-
 public class ModeSelect extends BaseComponent
 {
-   private MyButton versus;
-   private MyButton controls;
-   private MyButton back;
+//   private MyButton versus;
+//   private MyButton controls;
+//   private MyButton back;
    private Timer  timer;
 
    // private CircularLinkedList list; - to cycle through versus, controls, back

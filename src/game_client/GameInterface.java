@@ -40,7 +40,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
       modeSelect = new ModeSelect();
       startScreen = new StartScreen();
       charSelect = new CharSelect();
-      controls = new Controls();
+      controls = new Controls(player1, player2);
 
       // add all the components
       addComp(modeSelect);

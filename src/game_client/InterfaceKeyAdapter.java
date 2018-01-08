@@ -35,11 +35,14 @@ public class InterfaceKeyAdapter implements KeyListener
    public static int p1Row = 0;
    public static int p2Row = 0;
    // [0] = up;
-   // [1] = down;
-   // [2] = left;
-   // [3] = right;
+   // [1] = right;
+   // [2] = down;
+   // [3] = left;
    // [4] = jabConfirm;
    // [5] = kickBack;
+   public static int keypress = -1;
+   // for setting a new key in controls
+   // -1 is not one of the key constants in keyevent
 
    @Override
    public void keyPressed(KeyEvent e)
@@ -105,41 +108,73 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case CONTROLS:
          {
-            if (key == p1.getDown())
+            switch (Controls.state)
             {
-               ++p1Row;
-               if (p1Row > 5)
+               case (0):
                {
-                  p1Row = 0;
+                  if (key == p1.getDown())
+                  {
+                     ++p1Row;
+                     if (p1Row > 5)
+                     {
+                        p1Row = 0;
+                     }
+                  }
+                  else if (key == p2.getDown())
+                  {
+                     ++p2Row;
+                     if (p2Row > 5)
+                     {
+                        p2Row = 0;
+                     }
+                  }
+                  else if (key == p1.getUp())
+                  {
+                     --p1Row;
+                     if (p1Row < 0)
+                     {
+                        p1Row = 5;
+                     }
+                  }
+                  else if (key == p2.getUp())
+                  {
+                     --p2Row;
+                     if (p2Row < 0)
+                     {
+                        p2Row = 5;
+                     }
+                  }
+                  else if (key == p1.getJabConfirm())
+                  {
+                     Controls.state = 1;
+                  }
+                  else if (key == p2.getJabConfirm())
+                  {
+                     Controls.state = 2;
+                  }
+                  else if ((key == p1.getKickBack()) || (key == p2.getKickBack()) || (key == KeyEvent.VK_BACK_SPACE))
+                  {
+                     GameInterface.state = State.MODE_SELECT;
+                  }
+                  break;
                }
-            }
-            else if (key == p2.getDown())
-            {
-               ++p2Row;
-               if (p2Row > 5)
+               case (1):
                {
-                  p2Row = 0;
+                  keypress = key;
+                  // this only works cuz it's 60 fps laolmao
+                  // would like to fix but it's 99.9% a nonissue
+                  break;
                }
-            }
-            else if (key == p1.getUp())
-            {
-               --p1Row;
-               if (p1Row < 0)
+               case (2):
                {
-                  p1Row = 5;
+                  keypress = key;
+                  break;
                }
-            }
-            else if (key == p2.getUp())
-            {
-               --p2Row;
-               if (p2Row < 0)
+               case (3):
                {
-                  p2Row = 5;
+                  Controls.state = 0;
+                  break;
                }
-            }
-            else if ((key == p1.getKickBack()) || (key == p2.getKickBack()) || (key == KeyEvent.VK_BACK_SPACE))
-            {
-               GameInterface.state = State.MODE_SELECT;
             }
             break;
          }

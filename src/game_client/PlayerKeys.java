@@ -42,7 +42,8 @@ public class PlayerKeys
          setRight(KeyEvent.VK_D);
          setJabConfirm(KeyEvent.VK_F);
          setKickBack(KeyEvent.VK_G);
-      } else if (playerNumber == 2)
+      }
+      else if (playerNumber == 2)
       {
          setUp(KeyEvent.VK_UP);
          setDown(KeyEvent.VK_DOWN);
@@ -111,6 +112,14 @@ public class PlayerKeys
    public void setKickBack(int kickBack)
    {
       this.kickBack = kickBack;
+   }
+
+   public int[] getKeyList()
+   {
+      return new int[]
+      {
+            up, down, left, right, jabConfirm, kickBack
+      };
    }
 
 }
