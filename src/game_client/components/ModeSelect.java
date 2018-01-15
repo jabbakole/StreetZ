@@ -1,9 +1,11 @@
-package game_client;
+package game_client.components;
 
 import java.awt.Graphics;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import game_client.InterfaceKeyAdapter;
 
 public class ModeSelect extends BaseComponent
 {

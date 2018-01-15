@@ -1,4 +1,4 @@
-package game_client;
+package game_client.components;
 
 import java.awt.Graphics;
 import java.awt.Image;

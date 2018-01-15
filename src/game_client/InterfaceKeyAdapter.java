@@ -3,6 +3,9 @@ package game_client;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import game_client.components.CharSelect;
+import game_client.components.Controls;
+
 public class InterfaceKeyAdapter implements KeyListener
 {
 
@@ -23,8 +26,10 @@ public class InterfaceKeyAdapter implements KeyListener
    // 3 = quit
 
    // FOR CHARSELECT
-   public static int charCol = 1;
-   public static int charRow = 1;
+   public static int charCol1 = 0;
+   public static int charRow1 = 0;
+   public static int charCol2 = 0;
+   public static int charRow2 = 0;
    // 11 = somedude
    // 12 = someotherdude
    // ...
@@ -180,34 +185,129 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case CHAR_SELECT:
          {
-            if ((key == KeyEvent.VK_RIGHT) && charCol < 4)
+            if (CharSelect.is1Locked && CharSelect.is2Locked)
             {
-               charCol++;
+               if (key == p1.getKickBack())
+               {
+                  CharSelect.is1Locked = false;
+               }
+               else if (key == p2.getKickBack())
+               {
+                  CharSelect.is2Locked = false;
+               }
+               // if neither presses back, and someone presses anything, go to stageselect
+               else
+               {
+                  GameInterface.state = State.STAGE_SELECT;
+                  // reset everything
+                  CharSelect.is1Locked = false;
+                  CharSelect.is2Locked = false;
+                  charCol1 = 0;
+                  charCol2 = 0;
+                  charRow1 = 0;
+                  charRow2 = 0;
+               }
             }
-            else if ((key == KeyEvent.VK_LEFT) && charCol > 1)
+            else
             {
-               charCol--;
-            }
-            else if ((key == KeyEvent.VK_DOWN) && (charRow == 1))
-            {
-               charRow++;
-            }
-            else if ((key == KeyEvent.VK_UP) && (charRow == 2))
-            {
-               charRow--;
-            }
-            else if (key == KeyEvent.VK_BACK_SPACE)
-            {
-               GameInterface.state = State.MODE_SELECT;
-            }
-            else if (key == KeyEvent.VK_ENTER)
-            {
-               GameInterface.state = State.STAGE_SELECT;
+               // handle p1:
+               if (!CharSelect.is1Locked)
+               {
+                  if ((key == p1.getRight()) && charCol1 < 3)
+                  {
+                     charCol1++;
+                  }
+                  else if ((key == p1.getLeft()) && charCol1 > 0)
+                  {
+                     charCol1--;
+                  }
+                  else if ((key == p1.getDown()) && (charRow1 == 0))
+                  {
+                     charRow1++;
+                  }
+                  else if ((key == p1.getUp()) && (charRow1 == 1))
+                  {
+                     charRow1--;
+                  }
+                  else if (key == p1.getKickBack())
+                  {
+                     // reset everything
+                     CharSelect.is1Locked = false;
+                     CharSelect.is2Locked = false;
+                     charCol1 = 0;
+                     charCol2 = 0;
+                     charRow1 = 0;
+                     charRow2 = 0;
+                     GameInterface.state = State.MODE_SELECT;
+                  }
+                  else if (key == p1.getJabConfirm())
+                  {
+                     CharSelect.is1Locked = true;
+                  }
+               }
+               else
+               {
+                  if (key == p1.getKickBack())
+                  {
+                     CharSelect.is1Locked = false;
+                  }
+               }
+
+               // handle p2:
+               if (!CharSelect.is2Locked)
+               {
+                  if ((key == p2.getRight()) && charCol2 < 3)
+                  {
+                     charCol2++;
+                  }
+                  else if ((key == p2.getLeft()) && charCol2 > 0)
+                  {
+                     charCol2--;
+                  }
+                  else if ((key == p2.getDown()) && (charRow2 == 0))
+                  {
+                     charRow2++;
+                  }
+                  else if ((key == p2.getUp()) && (charRow2 == 1))
+                  {
+                     charRow2--;
+                  }
+                  else if (key == p2.getKickBack())
+                  {
+                     // reset everything
+                     CharSelect.is1Locked = false;
+                     CharSelect.is2Locked = false;
+                     charCol1 = 0;
+                     charCol2 = 0;
+                     charRow1 = 0;
+                     charRow2 = 0;
+                     GameInterface.state = State.MODE_SELECT;
+                  }
+                  else if (key == p2.getJabConfirm())
+                  {
+                     CharSelect.is2Locked = true;
+                  }
+               }
+               else
+               {
+                  if (key == p2.getKickBack())
+                  {
+                     CharSelect.is2Locked = false;
+                  }
+               }
             }
             break;
          }
          case STAGE_SELECT:
          {
+            if (key == p1.getKickBack())
+            {
+               GameInterface.state = State.CHAR_SELECT;
+            }
+            else if (key == p2.getKickBack())
+            {
+               GameInterface.state = State.CHAR_SELECT;
+            }
             break;
          }
          case VERSUS:

@@ -1,4 +1,4 @@
-package game_client;
+package game_client.components;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,6 +7,8 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import game_client.InterfaceKeyAdapter;
+import game_client.PlayerKeys;
 import ui_tools.MyControlButton;
 
 public class Controls extends BaseComponent

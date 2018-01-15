@@ -6,23 +6,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
-
-public class MyControlButton
+public class MyControlButton extends FocusableImage
 {
-   private Image   nonFocusedImg;
-   private Image   focusedImg;
-   private boolean isFocused;
-   private int     width;
-   private int     height;
-   private int     key;
+   private int key;
 
    public MyControlButton(int height, int width, int key)
    {
       this.height = height;
       this.width = width;
       this.key = key;
-      isFocused = false;
       createFocusImages();
    }
 
@@ -32,7 +24,7 @@ public class MyControlButton
       {
          return focusedImg;
       }
-      return nonFocusedImg;
+      return unFocusedImg;
    }
 
    public void setFocused()
@@ -79,7 +71,7 @@ public class MyControlButton
       g.fillRect(0, 0, width, height);
       g.setColor(Color.BLACK);
       g.drawString(s, 100, 36);
-      nonFocusedImg = buff;
+      unFocusedImg = buff;
    }
 
    private String getStringFromKey()

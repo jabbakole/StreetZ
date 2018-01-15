@@ -8,6 +8,13 @@ import java.util.ArrayList;
 import javax.swing.JLayeredPane;
 import javax.swing.Timer;
 
+import game_client.components.BaseComponent;
+import game_client.components.CharSelect;
+import game_client.components.Controls;
+import game_client.components.ModeSelect;
+import game_client.components.StageSelect;
+import game_client.components.StartScreen;
+
 public class GameInterface extends JLayeredPane implements ActionListener
 {
 
@@ -19,12 +26,20 @@ public class GameInterface extends JLayeredPane implements ActionListener
    private PlayerKeys player1;
    private PlayerKeys player2;
 
+   // Player Character id-ing
+   private String character1;
+   private String character2;
+   
+   // Stage id-ing
+   private String stage;
+
    // Components & related stuff for different states
    private ArrayList<BaseComponent> componentList;
    private ModeSelect               modeSelect;
    private StartScreen              startScreen;
    private CharSelect               charSelect;
    private Controls                 controls;
+   private StageSelect              stageSelect;
 
    private int compCount;
 
@@ -34,18 +49,24 @@ public class GameInterface extends JLayeredPane implements ActionListener
       player1 = new PlayerKeys(1);
       player2 = new PlayerKeys(2);
 
+      // initialize character ids
+      character1 = "";
+      character2 = "";
+
       // initialize all the components and related
       compCount = 0;
       componentList = new ArrayList<>();
       modeSelect = new ModeSelect();
       startScreen = new StartScreen();
-      charSelect = new CharSelect();
+      charSelect = new CharSelect(character1, character2);
       controls = new Controls(player1, player2);
+      stageSelect = new StageSelect(stage);
 
       // add all the components
       addComp(modeSelect);
       addComp(charSelect);
       addComp(controls);
+      addComp(stageSelect);
       addComp(startScreen);
 
       // initialize miscellaneous
@@ -121,6 +142,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
          }
          case STAGE_SELECT:
          {
+            bringCompToFront(stageSelect);
             break;
          }
          case VERSUS:
@@ -133,7 +155,10 @@ public class GameInterface extends JLayeredPane implements ActionListener
    // self documenting
    private void stopAllTimersBut(BaseComponent thisOne)
    {
-      thisOne.startTimer();
+      if (!thisOne.timerIsRunning())
+      {
+         thisOne.startTimer();  
+      }
       for (BaseComponent x : componentList)
       {
          if (x != thisOne)
