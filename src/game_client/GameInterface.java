@@ -14,6 +14,7 @@ import game_client.components.Controls;
 import game_client.components.ModeSelect;
 import game_client.components.StageSelect;
 import game_client.components.StartScreen;
+import game_client.components.Versus;
 
 public class GameInterface extends JLayeredPane implements ActionListener
 {
@@ -29,7 +30,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
    // Player Character id-ing
    private String character1;
    private String character2;
-   
+
    // Stage id-ing
    private String stage;
 
@@ -40,6 +41,8 @@ public class GameInterface extends JLayeredPane implements ActionListener
    private CharSelect               charSelect;
    private Controls                 controls;
    private StageSelect              stageSelect;
+   // placeholder
+   private Versus                   versus;
 
    private int compCount;
 
@@ -61,12 +64,16 @@ public class GameInterface extends JLayeredPane implements ActionListener
       charSelect = new CharSelect(character1, character2);
       controls = new Controls(player1, player2);
       stageSelect = new StageSelect(stage);
+      // placeholder
+      versus = new Versus();
 
       // add all the components
       addComp(modeSelect);
       addComp(charSelect);
       addComp(controls);
       addComp(stageSelect);
+      // placeholder
+      addComp(versus);
       addComp(startScreen);
 
       // initialize miscellaneous
@@ -147,6 +154,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
          }
          case VERSUS:
          {
+            bringCompToFront(versus);
             break;
          }
       }
@@ -157,7 +165,7 @@ public class GameInterface extends JLayeredPane implements ActionListener
    {
       if (!thisOne.timerIsRunning())
       {
-         thisOne.startTimer();  
+         thisOne.startTimer();
       }
       for (BaseComponent x : componentList)
       {

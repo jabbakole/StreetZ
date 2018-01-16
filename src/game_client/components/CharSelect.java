@@ -100,7 +100,7 @@ public class CharSelect extends BaseComponent
       if (is1Locked && is2Locked)
       {
          g.drawString("both locked", 600, 600);
-         g.drawString("press not-back key to continue", 400, 700);
+         g.drawString("press not-back key to continue", 400, 650);
       }
       else if (is1Locked)
       {

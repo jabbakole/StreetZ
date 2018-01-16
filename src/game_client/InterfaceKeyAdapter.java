@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import game_client.components.CharSelect;
 import game_client.components.Controls;
+import game_client.components.StageSelect;
 
 public class InterfaceKeyAdapter implements KeyListener
 {
@@ -48,6 +49,9 @@ public class InterfaceKeyAdapter implements KeyListener
    public static int keypress = -1;
    // for setting a new key in controls
    // -1 is not one of the key constants in keyevent
+
+   // FOR STAGESELECT
+   public static int stageCycler = 0;
 
    @Override
    public void keyPressed(KeyEvent e)
@@ -300,18 +304,50 @@ public class InterfaceKeyAdapter implements KeyListener
          }
          case STAGE_SELECT:
          {
-            if (key == p1.getKickBack())
+            if (!StageSelect.isStageSelected)
             {
-               GameInterface.state = State.CHAR_SELECT;
+               if (key == p1.getKickBack())
+               {
+                  GameInterface.state = State.CHAR_SELECT;
+               }
+               else if (key == p2.getKickBack())
+               {
+                  GameInterface.state = State.CHAR_SELECT;
+               }
+               else if (key == p1.getRight() || key == p2.getRight())
+               {
+                  stageCycler = 1;
+               }
+               else if (key == p1.getLeft() || key == p2.getLeft())
+               {
+                  stageCycler = -1;
+               }
+               else if (key == p1.getJabConfirm() || key == p2.getJabConfirm())
+               {
+                  StageSelect.isStageSelected = true;
+               }
             }
-            else if (key == p2.getKickBack())
+            else
             {
-               GameInterface.state = State.CHAR_SELECT;
+               if (key == p1.getKickBack() || key == p2.getKickBack())
+               {
+                  StageSelect.isStageSelected = false;
+               }
+               else
+               {
+                  StageSelect.isStageSelected = false;
+                  stageCycler = 0;
+                  GameInterface.state = State.VERSUS;
+               }
             }
             break;
          }
          case VERSUS:
          {
+            if (key == p1.getKickBack() || key == p2.getKickBack())
+            {
+               GameInterface.state = State.STAGE_SELECT;
+            }
             break;
          }
       }
